@@ -8,6 +8,8 @@ import {
   SignInButton,
   UserButton,
 } from "@clerk/nextjs";
+import Navbar from "@/components/my-component/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,23 +18,6 @@ export const metadata: Metadata = {
   description: "Admin Dashboard for UrbanInk",
 };
 
-function Header() {
-  return (
-    <header
-      style={{ display: "flex", justifyContent: "space-between", padding: 20, top: 0 }}
-    >
-      <h1>My App</h1>
-      <SignedIn>
-        {/* Mount the UserButton component */}
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        {/* Signed out users get sign in button */}
-        <SignInButton />
-      </SignedOut>
-    </header>
-  );
-}
 
 export default function RootLayout({
   children,
@@ -42,7 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ClerkProvider>
-        <body className={inter.className}>{children}</body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange>
+          <body className={inter.className}>{children}</body>
+        </ThemeProvider>
       </ClerkProvider>
     </html>
   );
